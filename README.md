@@ -1,4 +1,4 @@
-# Unipi kernel module and overlays
+# Unipi kernel modules and overlays
 
 This repository include:
 
