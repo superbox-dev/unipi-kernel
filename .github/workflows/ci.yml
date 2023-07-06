@@ -45,7 +45,6 @@ jobs:
         run: |
           ./.github/scripts/check-version.py
 
-
       - name: Check out repository
         uses: actions/checkout@v3
 
