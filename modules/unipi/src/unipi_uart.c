@@ -660,7 +660,9 @@ int neuronspi_uart_probe(struct spi_device* spi, struct neuronspi_driver_data *n
     
     if (n_spi->uart_count_to_probe) {
         n_spi->uart_pindex = neuronspi_uart_data_global->p_count;
-        for (i=0; i<n_spi->uart_count_to_probe; i++) {
+        //for (i=0; i<n_spi->uart_count_to_probe; i++) 
+        i = 0;
+        {
             // port is pointer to item ->p[x]
             port = neuronspi_uart_data_global->p + neuronspi_uart_data_global->p_count;
 
@@ -669,7 +671,7 @@ int neuronspi_uart_probe(struct spi_device* spi, struct neuronspi_driver_data *n
             port->dev_port  = i; 
             port->n_spi     = n_spi; // shorthand to n_spi
 
-            port->port.line	= neuronspi_uart_data_global->p_count;
+            port->port.line	= n_spi->neuron_index;
             port->port.irq	= spi->irq;
             port->port.type	= PORT_NEURONSPI;
             port->port.fifosize	= NEURONSPI_FIFO_SIZE*8;
@@ -701,7 +703,7 @@ int neuronspi_uart_probe(struct spi_device* spi, struct neuronspi_driver_data *n
             //kthread_init_work(&(port->tx_work), neuronspi_uart_tx_proc);
             kthread_init_work(&(port->flush_work), neuronspi_uart_flush_proc); // prepare work function for port flushing
             uart_add_one_port(neuronspi_uart_driver_global, &port->port);
-            printk(KERN_INFO "UNIPIUART: Serial port ttyNS%d on UniPi Board nspi%d port:%d created\n", neuronspi_uart_data_global->p_count, port->dev_index, port->dev_port);
+            printk(KERN_INFO "UNIPIUART: Serial port ttyNS%d on UniPi Board nspi%d port:%d created\n", port->port.line, port->dev_index, port->dev_port);
             unipi_uart_trace("Probe cflag:%08x\n", neuronspi_spi_uart_get_cflag(spi, i));
 
             n_spi->uart_count++;
@@ -711,7 +713,7 @@ int neuronspi_uart_probe(struct spi_device* spi, struct neuronspi_driver_data *n
             } else {
                 printk(KERN_INFO "UNIPIUART: PROBE maximum UART devices reached!\n");
                 ret = 1;
-                break;
+                //break;
             }
         }
         n_spi->uart_count_to_probe = 0;
