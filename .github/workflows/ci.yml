@@ -41,7 +41,6 @@ jobs:
           echo $LATEST_TAG
 
       - name: Check version
-        shell: bash
         run: |
           ./.github/scripts/check-version.py
 
