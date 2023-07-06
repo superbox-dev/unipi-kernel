@@ -251,12 +251,15 @@ static struct neuronspi_port* unipi_spi_check_message(struct unipi_spi_context* 
         if ((d_data != NULL) && d_data->uart_count && (portindex < d_data->uart_count)) {
             unipi_spi_trace_1(KERN_INFO "UNIPISPI: Reading UART data for device %d, opcode=%02x\n", d_data->neuron_index, opcode);
             port = neuronspi_uart_data_global->p + d_data->uart_pindex + portindex;
-            // put one incomming character from UART
-            neuronspi_uart_handle_rx(port, 1, recv_buf->first_message+3);
-            // read queue length
-            port->rx_remain = (recv_buf->first_message[2]==0  ? 256 : recv_buf->first_message[2]) - 1;
-                        
-            unipi_spi_trace(KERN_INFO "UNIPISPI: UART Buffer:%d, ttyNS%d(%d:%d)\n", port->rx_remain, port->port.line, port->dev_index, port->dev_port);
+            if (port->power_on) {
+                // put one incomming character from UART
+                neuronspi_uart_handle_rx(port, 1, recv_buf->first_message+3);
+                // read queue length
+                port->rx_remain = (recv_buf->first_message[2]==0  ? 256 : recv_buf->first_message[2]) - 1;
+                unipi_spi_trace(KERN_INFO "UNIPISPI: UART Buffer:%d, ttyNS%d(%d:%d)\n", port->rx_remain, port->port.line, port->dev_index, port->dev_port);
+            } else {
+                port = NULL;
+            }
         }
     } else if (opcode != 0xfa) {
         unipi_spi_trace(KERN_INFO "UNIPISPI: Err rx:%d\n",  opcode);
@@ -1628,6 +1631,9 @@ static int __init neuronspi_init(void)
 #endif
     // clear global neuron spi devices list
 	memset(&neuronspi_s_dev, 0, sizeof(neuronspi_s_dev));
+
+    neuronspi_uart_driver_init();
+
 	ret = spi_register_driver(&neuronspi_spi_driver);
 
 	if (ret < 0) {
@@ -1643,9 +1649,7 @@ static int __init neuronspi_init(void)
 
 	char_register_driver();
 
-    neuronspi_uart_driver_init();
-    neuronspi_uart_probe_all();
-
+    //neuronspi_uart_probe_all();
 	unipi_tty_init();
 	return ret;
 }

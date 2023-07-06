@@ -85,7 +85,8 @@ static void neuronspi_uart_set_iflags(struct neuronspi_port *n_port, int to)
 
 void neuronspi_uart_power(struct uart_port *port, s32 on)
 {
-    /* Do nothing */
+    struct neuronspi_port *n_port = to_neuronspi_port(port, port);
+    n_port->power_on = on;
 }
 void neuronspi_uart_set_mctrl(struct uart_port *port, u32 mctrl)
 {
@@ -732,12 +733,6 @@ int neuronspi_uart_probe_all(void)
         n_spi = spi_get_drvdata(spi);
         if (n_spi->uart_count_to_probe == 0) continue;
         
-        if (neuronspi_uart_data_global->p == NULL) {
-            
-            neuronspi_uart_data_global->p = kzalloc(sizeof(struct neuronspi_port[NEURONSPI_MAX_UART]), GFP_ATOMIC);
-            unipi_uart_trace("Allocated port structure for %d ttyNS devices", NEURONSPI_MAX_UART);
-        }
-        
         ret = neuronspi_uart_probe(spi, n_spi);
         if (ret)  break; // max number of uarts reached
 	}
@@ -757,6 +752,10 @@ int neuronspi_uart_driver_init(void)
 	neuronspi_uart_driver_global->dev_name	= "ttyNS";
 	neuronspi_uart_driver_global->driver_name = "ttyNS";
 	neuronspi_uart_driver_global->nr	= NEURONSPI_MAX_UART;
+
+	neuronspi_uart_data_global = kzalloc(sizeof(struct neuronspi_uart_data), GFP_ATOMIC);
+	neuronspi_uart_data_global->p = kzalloc(sizeof(struct neuronspi_port[NEURONSPI_MAX_UART]), GFP_ATOMIC);
+
 	ret = uart_register_driver(neuronspi_uart_driver_global);
 	if (ret) {
         printk(KERN_ERR "UNIPIUART: Failed to register the neuronspi uart driver, ERR:%d\n", ret);
@@ -765,11 +764,6 @@ int neuronspi_uart_driver_init(void)
         return ret;
 	}
 	unipi_uart_trace("UART driver registered successfully!\n");
-	if (neuronspi_uart_data_global != NULL) {
-		printk(KERN_ERR "UNIPIUART: Uart data already allocated!\n");
-        return 0;
-	}
-	neuronspi_uart_data_global = kzalloc(sizeof(struct neuronspi_uart_data), GFP_ATOMIC);
 	unipi_uart_trace("UART driver data allocated successfully!\n");
     return 0;
 }

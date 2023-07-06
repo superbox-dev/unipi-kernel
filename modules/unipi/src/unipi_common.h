@@ -52,7 +52,7 @@
 #if NEURONSPI_SCHED_REQUIRED > 0
 	#include <uapi/linux/sched/types.h>
 #endif
-#define NEURONSPI_MAJOR_VERSIONSTRING "Version 1.112:2022:04:20"
+#define NEURONSPI_MAJOR_VERSIONSTRING "Version 1.121:2022:09:08"
 
 #define NEURONSPI_MAX_DEVS				7	//Maximal SPI card count
 #define NEURONSPI_MAX_UART				16
@@ -128,6 +128,7 @@ struct neuronspi_port
 	u8							dev_index;  // index into global array neuronspi_s_dev 
 	u8							dev_port;   // index of port on neuronspi device
     struct neuronspi_driver_data  *n_spi;     // shorthand to n_spi 
+	int							power_on;         // power on/off
     
     u8                          rx_remain;
     int                         accept_rx;
