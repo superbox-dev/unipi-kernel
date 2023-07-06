@@ -3,10 +3,14 @@ name: CI
 on:
   workflow_dispatch:
     inputs:
-      dkms-version:
+      package-version:
         description: Version
         type: string
         required: True
+
+env:
+  PACKAGE_NAME: unipi-kernel-modules
+  REPO_URL: https://repo.unipi.technology/debian/pool/main/u/unipi-kernel-modules
 
 jobs:
   code-analyse:
@@ -28,7 +32,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Download debian package
-        id: params
         shell: bash
         run: |
           ./.github/scripts/download-debian-package.sh
