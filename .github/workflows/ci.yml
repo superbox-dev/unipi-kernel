@@ -40,12 +40,12 @@ jobs:
 
           echo $LATEST_TAG
 
+      - name: Check out repository
+        uses: actions/checkout@v3
+
       - name: Check version
         run: |
           ./.github/scripts/check-version.py
-
-      - name: Check out repository
-        uses: actions/checkout@v3
 
       - name: Download debian package
         shell: bash
