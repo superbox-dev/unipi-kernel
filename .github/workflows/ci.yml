@@ -1,4 +1,4 @@
-name: Kernel modules
+name: CI
 
 on:
   workflow_dispatch:
@@ -9,6 +9,10 @@ on:
         required: True
 
 jobs:
+  code-analyse:
+    name: Code analyse
+    uses: ./.github/workflows/_code-analyse.yml
+
   get-dkms-source:
     if: |
       github.event_name == 'workflow_dispatch' 
