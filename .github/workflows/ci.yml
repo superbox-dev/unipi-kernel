@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     if: |
-      github.event_name == 'workflow_dispatch' 
+      github.event_name == 'workflow_dispatch'
       && github.ref == 'refs/heads/main'
     needs:
       - code-analyse
@@ -31,4 +31,4 @@ jobs:
         id: params
         shell: bash
         run: |
-          ./.github/scripts/download-debian-package.sh    
+          ./.github/scripts/download-debian-package.sh
