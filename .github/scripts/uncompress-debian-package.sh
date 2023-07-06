@@ -10,3 +10,4 @@ if [ ! -d modules ]; then
 fi
 
 cp -R "/tmp/dkms/usr/src/unipi-${PACKAGE_VERSION}/"* "${GITHUB_WORKSPACE}/modules"
+rm "${GITHUB_WORKSPACE}/modules/dkms.conf"
