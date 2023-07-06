@@ -41,3 +41,14 @@ jobs:
         shell: bash
         run: |
           ./.github/scripts/uncompress-debian-package.sh
+
+      - name: Commit kernel modules
+        shell: bash
+        run: |
+          ./.github/scripts/commit-kernel-modules.sh
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.head_ref }}
