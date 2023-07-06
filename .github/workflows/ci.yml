@@ -10,6 +10,7 @@ on:
 
 env:
   PACKAGE_NAME: unipi-kernel-modules
+  PACKAGE_VERSION: ${{ inputs.package-version }}
   REPO_URL: https://repo.unipi.technology/debian/pool/main/u/unipi-kernel-modules
 
 jobs:
@@ -35,3 +36,4 @@ jobs:
         shell: bash
         run: |
           ./.github/scripts/download-debian-package.sh
+        env:
