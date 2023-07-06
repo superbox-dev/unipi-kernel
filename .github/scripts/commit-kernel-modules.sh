@@ -7,6 +7,6 @@ git config --local user.name "github-actions[bot]"
 
 if [ "$(git status --porcelain | wc -l)" -gt "0" ]; then
     git add modules
-    git commit -m "Unipi Kernel Modules v${PACKAGE_VERSION}"
+    git commit -m "Unipi kernel modules v${PACKAGE_VERSION}"
 fi
 
