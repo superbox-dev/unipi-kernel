@@ -9,4 +9,4 @@ if [ ! -d modules ]; then
   mkdir "${GITHUB_WORKSPACE}/modules"
 fi
 
-mv "/tmp/dkms/usr/src/unipi-${PACKAGE_VERSION}/"* "${GITHUB_WORKSPACE}/modules"
+cp -R "/tmp/dkms/usr/src/unipi-${PACKAGE_VERSION}/"* "${GITHUB_WORKSPACE}/modules"
