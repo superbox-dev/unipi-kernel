@@ -36,3 +36,8 @@ jobs:
         shell: bash
         run: |
           ./.github/scripts/download-debian-package.sh
+
+      - name: Uncompress debian package
+        shell: bash
+        run: |
+          ./.github/scripts/uncompress-debian-package.sh
