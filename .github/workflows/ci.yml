@@ -40,6 +40,12 @@ jobs:
 
           echo $LATEST_TAG
 
+      - name: Check version
+        shell: bash
+        run: |
+          ./.github/scripts/check-version.py
+
+
       - name: Check out repository
         uses: actions/checkout@v3
 
@@ -68,4 +74,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: v${{ env.PACKAGE_VERSION }}
+          body: Unipi kernel module v${{ env.PACKAGE_VERSION }}
           tag_name: refs/tags/v${{ env.PACKAGE_VERSION }}
