@@ -1,0 +1,27 @@
+name: Code analyse
+
+on:
+  workflow_call:
+
+jobs:
+  code_analyse:
+    name: Code analyse
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Install requirements
+        run: |
+          pip install yamllint
+          sudo -E apt-get -qq update
+          sudo apt install shellcheck
+
+      - name: Lint with yamllint
+        run: |
+          yamllint --version
+          yamllint $(git ls-files '*.yaml') $(git ls-files '*.yml')
+
+      - name: Check shell scripts
+        run: |
+          for file in $(find . -type f -name "*.sh"); do shellcheck --format=gcc $file; done;

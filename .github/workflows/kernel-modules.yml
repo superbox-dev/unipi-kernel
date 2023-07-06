@@ -1,0 +1,28 @@
+name: Kernel modules
+
+on:
+  workflow_dispatch:
+    dkms-inputs:
+      version:
+        description: Version
+        type: string
+        required: True
+
+jobs:
+  get-dkms-source:
+    if: |
+      github.event_name == 'workflow_dispatch' 
+      && github.ref == 'refs/heads/main'
+
+    name: Get DKMS source
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Download debian package
+        id: params
+        shell: bash
+        run: |
+          ./.github/scripts/download-debian-package.sh    
