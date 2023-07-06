@@ -2,11 +2,12 @@ name: CI
 
 on:
   workflow_dispatch:
-    dkms-inputs:
-      version:
-        description: Version
-        type: string
-        required: True
+    inputs:
+      dkms-inputs:
+        version:
+          description: Version
+          type: string
+          required: True
 
 jobs:
   code-analyse:
