@@ -36,4 +36,3 @@ jobs:
         shell: bash
         run: |
           ./.github/scripts/download-debian-package.sh
-        env:
