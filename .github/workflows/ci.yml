@@ -28,7 +28,7 @@ jobs:
       overlays-version: ${{ inputs.overlays-version }}
 
   kernel-modules:
-    name: Overlays
+    name: Kernel modules
     uses: ./.github/workflows/_kernel-modules.yml
     needs:
       - overlays
