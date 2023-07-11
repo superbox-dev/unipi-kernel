@@ -9,7 +9,7 @@ if [ ! -d overlays ]; then
   mkdir "${GITHUB_WORKSPACE}/overlays"
 fi
 
-apt-get install device-tree-compiler
+sudo apt-get install device-tree-compiler
 
 for f in /tmp/overlays/*.dtbo; do dtc -I dtb -O dts $f -o /tmp/overlays`basename $f .dtbo`.dts; done
 
