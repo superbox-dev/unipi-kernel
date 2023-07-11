@@ -1,0 +1,47 @@
+name: Overlays
+
+on:
+  workflow_call:
+    inputs:
+      overlays-version:
+        required: True
+        type: string
+
+env:
+  OVERLAYS_PACKAGE_NAME: unipi-os-configurator-data
+  OVERLAYS_VERSION: ${{ inputs.overlays-version }}
+  OVERLAYS_REPO_URL: https://repo.unipi.technology/debian/pool/neuron-main/u/unipi-os-configurator-data
+
+jobs:
+  get-overlays:
+    name: Get overlays
+    runs-on: ubuntu-latest
+
+    if: |
+      github.event_name == 'workflow_dispatch'
+      && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Download overlays package
+        shell: bash
+        run: |
+          ./.github/scripts/download-overlays-package.sh
+
+      - name: Uncompress overlays package
+        shell: bash
+        run: |
+          ./.github/scripts/uncompress-overlays-package.sh
+
+      - name: Commit overlays modules
+        shell: bash
+        run: |
+          ./.github/scripts/commit-overlays-modules.sh
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.head_ref }}
