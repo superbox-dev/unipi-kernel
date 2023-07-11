@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       overlays-version:
-        description: Version
+        description: Overlay version
         default: '0.50'
         type: string
         required: True
       kernel-version:
-        description: Version
+        description: Kernel version
         default: '2.26'
         type: string
         required: True
