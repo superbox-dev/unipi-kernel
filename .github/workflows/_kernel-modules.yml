@@ -3,14 +3,14 @@ name: Kernel modules
 on:
   workflow_call:
     inputs:
-      kernel-version:
+      kernel-modules-version:
         required: True
         type: string
 
 env:
-  KERNEL_PACKAGE_NAME: unipi-kernel-modules-dkms
-  KERNEL_VERSION: ${{ inputs.kernel-version }}
-  KERNEL_REPO_URL: https://repo.unipi.technology/debian/pool/main/u/unipi-kernel-modules
+  PACKAGE_NAME: unipi-kernel-modules-dkms
+  PACKAGE_VERSION: ${{ inputs.kernel-modules-version }}
+  REPO_URL: https://repo.unipi.technology/debian/pool/main/u/unipi-kernel-modules
 
 jobs:
   get-dkms-source:
@@ -64,6 +64,6 @@ jobs:
       - name: Release on GitHub
         uses: softprops/action-gh-release@v1
         with:
-          name: v${{ env.KERNEL_VERSION }}
-          body: Unipi kernel module v${{ env.KERNEL_VERSION }}
-          tag_name: refs/tags/v${{ env.KERNEL_VERSION }}
+          name: v${{ env.PACKAGE_VERSION }}
+          body: Unipi kernel module v${{ env.PACKAGE_VERSION }}
+          tag_name: refs/tags/v${{ env.PACKAGE_VERSION }}

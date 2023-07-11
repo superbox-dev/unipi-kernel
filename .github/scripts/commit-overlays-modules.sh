@@ -7,6 +7,6 @@ git config --local user.name "github-actions[bot]"
 
 if [ "$(git status --porcelain | wc -l)" -gt "0" ]; then
     git add overlays
-    git commit -m "Device tree files v${OVERLAYS_VERSION}"
+    git commit -m "Device tree files v${PACKAGE_VERSION}"
 fi
 

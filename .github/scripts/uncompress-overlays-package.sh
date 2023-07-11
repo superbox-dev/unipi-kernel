@@ -2,7 +2,7 @@
 
 set -e
 
-ar x --output /tmp/overlays "/tmp/overlays/${OVERLAYS_PACKAGE_NAME}_${OVERLAYS_VERSION}~bullseye-neuron_armhf.deb"
+ar x --output /tmp/overlays "/tmp/overlays/${PACKAGE_NAME}_${PACKAGE_VERSION}~bullseye-neuron_armhf.deb"
 tar xf /tmp/overlays/data.tar.xz -C /tmp/overlays
 
 if [ ! -d overlays ]; then

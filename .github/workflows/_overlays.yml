@@ -8,9 +8,9 @@ on:
         type: string
 
 env:
-  OVERLAYS_PACKAGE_NAME: unipi-os-configurator-data
-  OVERLAYS_VERSION: ${{ inputs.overlays-version }}
-  OVERLAYS_REPO_URL: https://repo.unipi.technology/debian/pool/neuron-main/u/unipi-os-configurator-data
+  PACKAGE_NAME: unipi-os-configurator-data
+  PACKAGE_VERSION: ${{ inputs.overlays-version }}
+  REPO_URL: https://repo.unipi.technology/debian/pool/neuron-main/u/unipi-os-configurator-data
 
 jobs:
   get-overlays:

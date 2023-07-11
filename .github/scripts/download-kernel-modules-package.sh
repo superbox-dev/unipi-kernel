@@ -3,4 +3,4 @@
 set -e
 
 mkdir -pv /tmp/dkms
-wget -P /tmp/dkms "${KERNEL_REPO_URL}/${KERNEL_PACKAGE_NAME}_${KERNEL_VERSION}~bullseye_all.deb"
+wget -P /tmp/dkms "${REPO_URL}/${PACKAGE_NAME}_${PACKAGE_VERSION}~bullseye_all.deb"

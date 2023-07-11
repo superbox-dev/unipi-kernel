@@ -8,7 +8,7 @@ on:
         default: '0.50'
         type: string
         required: True
-      kernel-version:
+      kernel-modules-version:
         description: Kernel version
         default: '2.26'
         type: string
@@ -33,4 +33,4 @@ jobs:
     needs:
       - overlays
     with:
-      kernel-version: ${{ inputs.kernel-version }}
+      kernel-modules-version: ${{ inputs.kernel-modules-version }}
