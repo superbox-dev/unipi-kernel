@@ -9,5 +9,5 @@ if [ ! -d modules ]; then
   mkdir "${GITHUB_WORKSPACE}/modules"
 fi
 
-cp -R "/tmp/dkms/usr/src/unipi-${KERNEL_VERSION}/"* "${GITHUB_WORKSPACE}/modules"
+cp -R "/tmp/dkms/usr/src/unipi-${KERNEL_VERSION}~bullseye/"* "${GITHUB_WORKSPACE}/modules"
 rm "${GITHUB_WORKSPACE}/modules/dkms.conf"
