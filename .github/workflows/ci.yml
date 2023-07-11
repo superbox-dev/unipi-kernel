@@ -5,12 +5,12 @@ on:
     inputs:
       overlays-version:
         description: Version
-        default: "0.50"
+        default: '0.50'
         type: string
         required: True
       kernel-version:
         description: Version
-        default: "2.26"
+        default: '2.26'
         type: string
         required: True
 
@@ -34,4 +34,3 @@ jobs:
       - overlays
     with:
       kernel-version: ${{ inputs.kernel-version }}
-
