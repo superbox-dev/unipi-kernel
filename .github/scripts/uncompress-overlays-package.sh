@@ -11,7 +11,9 @@ fi
 
 sudo apt-get install device-tree-compiler
 
-for f in /tmp/overlays/*.dtbo; do dtc -I dtb -O dts $f -o /tmp/overlays`basename $f .dtbo`.dts; done
+mkdir -pv /tmp/overlays-src
+
+for f in /tmp/overlays/boot/overlays/*.dtbo; do dtc -I dtb -O dts $f -o /tmp/overlays-src/`basename $f .dtbo`.dts; done
 
 rm -rf "${GITHUB_WORKSPACE}/overlays/*.dts"
-cp -R /tmp/overlays/*.dts "${GITHUB_WORKSPACE}/overlays"
+cp -R /tmp/overlays-src/*.dts "${GITHUB_WORKSPACE}/overlays"
