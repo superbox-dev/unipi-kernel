@@ -17,5 +17,7 @@ jobs:
   kernel-modules:
     name: Kernel modules
     uses: ./.github/workflows/_kernel-modules.yml
+    needs:
+      - code-analyse
     with:
       kernel-modules-version: ${{ inputs.kernel-modules-version }}
