@@ -3,11 +3,6 @@ name: CI
 on:
   workflow_dispatch:
     inputs:
-      overlays-version:
-        description: Overlay version
-        default: '0.50'
-        type: string
-        required: True
       kernel-modules-version:
         description: Kernel version
         default: '2.26'
@@ -18,14 +13,6 @@ jobs:
   code-analyse:
     name: Code analyse
     uses: ./.github/workflows/_code-analyse.yml
-
-  overlays:
-    name: Overlays
-    uses: ./.github/workflows/_overlays.yml
-    needs:
-      - code-analyse
-    with:
-      overlays-version: ${{ inputs.overlays-version }}
 
   kernel-modules:
     name: Kernel modules
