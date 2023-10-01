@@ -2,7 +2,7 @@
 
 set -e
 
-ar x --output /tmp/dkms "/tmp/dkms/${PACKAGE_NAME}_${PACKAGE_VERSION}~bullseye_all.deb"
+ar x --output /tmp/dkms "/tmp/dkms/${PACKAGE_NAME}_${PACKAGE_VERSION}~buster_all.deb"
 tar xf /tmp/dkms/data.tar.xz -C /tmp/dkms
 
 if [ ! -d modules ]; then
