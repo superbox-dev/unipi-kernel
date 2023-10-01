@@ -8,7 +8,7 @@
 #ifndef UNIEE_H_
 #define UNIEE_H_
 
-#if defined (CONFIG_MODULES) || defined (CONFIG_SYS_BOARD)
+#ifdef CONFIG_MODULES
  #include <linux/types.h>
  #include <linux/string.h>
  #include <asm/byteorder.h>

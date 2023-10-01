@@ -20,15 +20,11 @@ DOIT = $(shell grep -qse "^4\." include/config/kernel.release || echo 1)
 ifeq ($(DOIT), 1)
 
 C_SRC_FILES += src/unipi_rfkill.c
-C_SRC_FILES += src/unipi_consumer.c
 #H_SRC_FILES += src/unipi_rfkill.h
 OBJ_FILES  = $(C_SRC_FILES:.c=.o)
 obj-m += unipi_rfkill.o
-obj-m += unipi_consumer.o
-
 UNIPI_KERNEL_MODULES = $(obj-m:.o=.ko)
-unipi_rfkill-objs := src/unipi_rfkill.o
-unipi_consumer-objs := src/unipi_consumer.o
+unipi_rfkill-objs := ${OBJ_FILES}
 
 endif
 
@@ -42,7 +38,6 @@ modules_install:
 	$(MAKE) $(CCPAR) -C $(LINUX_DIR_PATH) M=${PWD} modules_install
 
 dkms:
-	@echo $(obj-m:.o=) > dkms.list
 	$(INSTALL) -D $(MODULE_MAKE_FILE) -t $(INSTALL_MOD_PATH)
 	$(INSTALL) -D $(C_SRC_FILES) $(H_SRC_FILES) -t $(INSTALL_MOD_PATH)/src
 
